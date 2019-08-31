@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql
+        imagePullPolicy: Always
+        ports:
+         - containerPort: 3306
+        env:
+          # Use secret in real usage
+        - name: MYSQL_ROOT_PASSWORD
+          value: the secret root password
+        - name: MYSQL_DATABASE
+          value: kube-demo
+        - name: MYSQL_USER
+          value: kube-demo-user
+        - name: MYSQL_PASSWORD
+          value: kube-demo-pwd
+        ports:
+        - containerPort: 3306
+          name: mysql
+
+
+      

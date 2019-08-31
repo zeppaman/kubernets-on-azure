@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: api
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: api
+    spec:
+      containers:
+      - name: api
+        image: kuberepodemo.azurecr.io/api:latest
+        imagePullPolicy: Always
+        ports:
+         - containerPort: 80
+        env:
+          # Use secret in real usage
+        - name: CONNECTION_STRING
+          value: Server=mysql; Port=3306; Database=kube-demo; user=kube-demo-user; password=kube-demo-pwd;
+      imagePullSecrets:
+         - name: acr-auth
+      
